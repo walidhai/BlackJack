@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 
 
 public class Deck{
-  Card[] cardStack;
+  static Card[] cardStack;
   int deck_size;
 
   public Deck(){
@@ -22,6 +22,8 @@ public class Deck{
       Scanner sc = new Scanner(cf);
       System.out.println("Ikke no piss");
 
+      String fileinput;
+      char[] tmp;
       String suiteType;
       String passedValue;
 
@@ -29,9 +31,18 @@ public class Deck{
         if(!sc.hasNext()){
           break;
         }
-        suiteType = sc.next();
+        fileinput = sc.next();
+        tmp = fileinput.toCharArray();
+        if (tmp.length > 2) {
+          System.out.println("yeet");
+        }else if(tmp.length<2){
+          System.out.println("ERROR: FILE INPUT INVALID");
+        }else{
 
-        System.out.println(suiteType);
+        }
+
+
+        System.out.println(tmp);
 
       }
 
@@ -39,6 +50,20 @@ public class Deck{
       e.printStackTrace();
     }
   }
+  static int count_lines(String filename) throws FileNotFoundException{
+    File cf = new File(filename);
+
+    Scanner sc = new Scanner(cf);
+    int teller = 0;
+    while(sc.hasNextLine()){
+      if (!sc.hasNext()) {
+        break;
+      }
+      teller++;
+    }
+    return teller;
+  }
+
   void self_initialize_deck(){
     Card tempCard;
     cardStack = new Card[52];
@@ -133,13 +158,14 @@ public class Deck{
     return false;
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws FileNotFoundException{
   /*  Deck d1 = new Deck();
     d1.self_initialize_deck();
     for (Card c : d1.cardStack) {
       System.out.println(c.suit + c.val);
     }*/
-
+    int sl = count_lines("Cards1.txt");
+    cardStack = new Card[sl];
     initialize_from_read("Cards1.txt");
   }
 }
