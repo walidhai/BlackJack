@@ -1,5 +1,7 @@
 import java.util.*;
+import java.io.File;
 import java.lang.Math;
+import java.io.FileNotFoundException;
 
 
 public class Deck{
@@ -10,9 +12,32 @@ public class Deck{
 
   }
 
-  void initialize_from_read(){
-    Scanner sc = new Scannes(System.in);
-    
+  static void initialize_from_read(String filename) {
+
+    //Keeping my scanner and file variablenames short
+    File cf = new File(filename);
+
+    try {
+      //pass på her pls
+      Scanner sc = new Scanner(cf);
+      System.out.println("Ikke no piss");
+
+      String suiteType;
+      String passedValue;
+
+      while(sc.hasNextLine()){
+        if(!sc.hasNext()){
+          break;
+        }
+        suiteType = sc.next();
+
+        System.out.println(suiteType);
+
+      }
+
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
   }
   void self_initialize_deck(){
     Card tempCard;
@@ -109,11 +134,12 @@ public class Deck{
   }
 
   public static void main(String[] args) {
-    Deck d1 = new Deck();
+  /*  Deck d1 = new Deck();
     d1.self_initialize_deck();
     for (Card c : d1.cardStack) {
       System.out.println(c.suit + c.val);
-    }
+    }*/
 
+    initialize_from_read("Cards1.txt");
   }
 }
