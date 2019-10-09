@@ -53,35 +53,41 @@ public class Deck{
           //adding the two numbers and converting to int.
           String ss = Character.toString(tmp[1])+Character.toString(tmp[2]);
           int a = Integer.parseInt(ss);
-
-
+          System.out.println(a);
+          tempCard = new Card(s, a);
           System.out.println("yeet");
+          cardStack[teller] = tempCard;
 
         }else if(tmp.length<2 || tmp.length > 3){
           System.out.println("ERROR: FILE INPUT INVALID");
         }else{
           int a;
+          if (tmp[1]=='J'||tmp[1]=='Q'||tmp[1]=='K') {
+            a = 10;
+            String s = Character.toString(tmp[0]);
+            tempCard = new Card(s, a);
+            tempCard.setSpecial(tmp[1]);
+            cardStack[teller] = tempCard;
 
-            if (tmp[1]=='J'||tmp[1]=='Q'||tmp[1]=='K') {
-              a = 10;
-
-            }else if (tmp[1]=='A') {
-              a = 11;
-            }else{
-              System.out.println("Invalid character");
-            }
-
+          }else if (tmp[1]=='A') {
+            a = 11;
+            String s = Character.toString(tmp[0]);
+            tempCard = new Card(s, a);
+            tempCard.specCard = tmp[1];
+            cardStack[teller] = tempCard;
+          }else{
             String s = Character.toString(tmp[0]);
             a = Character.getNumericValue(tmp[1]);
             tempCard = new Card(s, a);
             cardStack[teller] = tempCard;
+          }
 
 
-          System.out.println(cardStack[teller].suit + cardStack[teller].val);
+
         }
 
 
-
+        System.out.println(cardStack[teller].suit + cardStack[teller].val);
         teller ++;
       }
 
@@ -148,21 +154,21 @@ public class Deck{
             }
           }
         } else if (i == 2) {
-            if (j<=10) {
+          if (j<=10) {
+            tempCard.suit = "H";
+            tempCard.val = j;
+            cardStack[counter] = tempCard;
+          }else if (j>10) {
+            if (j==14) {
               tempCard.suit = "H";
-              tempCard.val = j;
+              tempCard.val = 11;
               cardStack[counter] = tempCard;
-            }else if (j>10) {
-              if (j==14) {
-                tempCard.suit = "H";
-                tempCard.val = 11;
-                cardStack[counter] = tempCard;
-              }else{
-                tempCard.suit = "H";
-                tempCard.val = 10;
-                cardStack[counter] = tempCard;
-              }
+            }else{
+              tempCard.suit = "H";
+              tempCard.val = 10;
+              cardStack[counter] = tempCard;
             }
+          }
         }
         else if (i == 3) {
           if (j<=10) {
@@ -201,14 +207,17 @@ public class Deck{
   }
 
   public static void main(String[] args) throws FileNotFoundException{
-  /*  Deck d1 = new Deck();
+    /*  Deck d1 = new Deck();
     d1.self_initialize_deck();
     for (Card c : d1.cardStack) {
-      System.out.println(c.suit + c.val);
-    }*/
-    /*int sl = count_lines("Cards1.txt");
-    cardStack = new Card[sl];
-    System.out.println("Size of cardstack is : " + cardStack.length);*/
-    initialize_from_read("Cards1.txt");
+    System.out.println(c.suit + c.val);
+  }*/
+  /*int sl = count_lines("Cards1.txt");
+  cardStack = new Card[sl];
+  System.out.println("Size of cardstack is : " + cardStack.length);*/
+  initialize_from_read("Cards1.txt");
+  for (Card c : cardStack) {
+    System.out.println("Suit: " + c.suit + " Value: " + c.val + " SpecialCard if given: " + c.specCard);
   }
+}
 }
