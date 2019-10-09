@@ -34,6 +34,12 @@ public class Deck{
       String suiteType;
       String passedValue;
 
+      /* Actual reading from
+       *
+       *
+       *
+       *
+       */
       while(sc.hasNextLine()){
         if(!sc.hasNext()){
           break;
