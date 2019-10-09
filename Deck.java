@@ -15,6 +15,10 @@ public class Deck{
   static void initialize_from_read(String filename) throws FileNotFoundException{
 
     //Keeping my scanner and file variablenames short
+    // At first glance of the assignment I would have thought all card stacks
+    // contains 52 cards. But with a function for reading lines I can easily set
+    // up a dynamic size that fits all given files.
+    // int sze = 52;
     int sze = count_lines(filename);
     cardStack = new Card[sze];
     Card tempCard;
@@ -36,15 +40,44 @@ public class Deck{
         }
         fileinput = sc.next();
         tmp = fileinput.toCharArray();
+
+        /*   In the events of reading cards from the file I either get lines with
+        *    2 characters or 3 characters depending on the score.
+        *    3 characters is the special case with cards of value = 10.
+        *    Everything under 2 characters and over 3 characters break the fashion
+        *    code of cards in this cardgame.
+        */
         if (tmp.length == 3) {
+          String s = Character.toString(tmp[0]);
+
+          //adding the two numbers and converting to int.
+          String ss = Character.toString(tmp[1])+Character.toString(tmp[2]);
+          int a = Integer.parseInt(ss);
+
+
           System.out.println("yeet");
+
         }else if(tmp.length<2 || tmp.length > 3){
           System.out.println("ERROR: FILE INPUT INVALID");
         }else{
-          String s = Character.toString(tmp[0]);
-          int a = Character.getNumericValue(tmp[1]);
-          tempCard = new Card(s, a);
-          cardStack[teller] = tempCard;
+          int a;
+
+            if (tmp[1]=='J'||tmp[1]=='Q'||tmp[1]=='K') {
+              a = 10;
+
+            }else if (tmp[1]=='A') {
+              a = 11;
+            }else{
+              System.out.println("Invalid character");
+            }
+
+            String s = Character.toString(tmp[0]);
+            a = Character.getNumericValue(tmp[1]);
+            tempCard = new Card(s, a);
+            cardStack[teller] = tempCard;
+
+
+          System.out.println(cardStack[teller].suit + cardStack[teller].val);
         }
 
 

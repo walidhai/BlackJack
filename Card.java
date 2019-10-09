@@ -13,8 +13,21 @@ public class Card{
     this.val = val;
 
   }
+  public String getSuit(){
+    if (suit==null) {
+      return "no suit given";
+    }
+    return suit;
+  }
 
-  
+  public int getVal(){
+    return val;
+  }
+
+  public void card_is_drawn(){
+    taken = true;
+    
+  }
   public static void main(String[] args) {
     Card c1 = new Card("C", 2);
 
