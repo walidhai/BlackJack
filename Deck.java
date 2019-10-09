@@ -27,7 +27,6 @@ public class Deck{
     try {
       //pass på her pls
       Scanner sc = new Scanner(cf);
-      System.out.println("Ikke no piss");
 
       String fileinput;
       char[] tmp;
@@ -54,14 +53,13 @@ public class Deck{
         *    code of cards in this cardgame.
         */
         if (tmp.length == 3) {
-          String s = Character.toString(tmp[0]);
+
 
           //adding the two numbers and converting to int.
-          String ss = Character.toString(tmp[1])+Character.toString(tmp[2]);
-          int a = Integer.parseInt(ss);
+
+          int a = Integer.parseInt("" +tmp[1] + tmp[2]);
           System.out.println(a);
-          tempCard = new Card(s, a);
-          System.out.println("yeet");
+          tempCard = new Card(tmp[0], a);
           cardStack[teller] = tempCard;
 
         }else if(tmp.length<2 || tmp.length > 3){
@@ -70,29 +68,24 @@ public class Deck{
           int a;
           if (tmp[1]=='J'||tmp[1]=='Q'||tmp[1]=='K') {
             a = 10;
-            String s = Character.toString(tmp[0]);
-            tempCard = new Card(s, a);
+
+            tempCard = new Card(tmp[0], a);
             tempCard.setSpecial(tmp[1]);
             cardStack[teller] = tempCard;
 
           }else if (tmp[1]=='A') {
             a = 11;
-            String s = Character.toString(tmp[0]);
-            tempCard = new Card(s, a);
+
+            tempCard = new Card(tmp[0], a);
             tempCard.specCard = tmp[1];
             cardStack[teller] = tempCard;
           }else{
-            String s = Character.toString(tmp[0]);
+
             a = Character.getNumericValue(tmp[1]);
-            tempCard = new Card(s, a);
+            tempCard = new Card(tmp[0], a);
             cardStack[teller] = tempCard;
           }
-
-
-
         }
-
-
         System.out.println(cardStack[teller].suit + cardStack[teller].val);
         teller ++;
       }
@@ -118,7 +111,7 @@ public class Deck{
     return teller;
   }
 
-  void self_initialize_deck(){
+  /*void self_initialize_deck(){
     Card tempCard;
     cardStack = new Card[52];
     deck_size = cardStack.length;
@@ -198,11 +191,31 @@ public class Deck{
       }
     }
 
+  }*/
+
+  void self_initialize_deck_v2() throws FileNotFoundException{
+    initialize_from_read("Self.txt");
   }
 
-
-  void draw_card(){
-
+  public static Card draw_card(){
+    // Instead of stocking the input in the deck randomky, I chose to draw card from a randomk
+    // index in the deck using the Math.random extension.
+    //
+    int min = 0;
+    int max = cardStack.length - 1;
+    int range = max - min +1;
+    int rand = 0;
+    boolean drawn = false;
+    while(!drawn){
+      rand = (int) (Math.random() * range) + min;
+      if(cardStack[rand].taken==false){
+        cardStack[rand].card_is_drawn();
+        System.out.println("Random card: " + cardStack[rand].suit + cardStack[rand].val);
+        drawn = true;
+      }
+      System.out.println("--");
+    }
+    return cardStack[rand];
   }
 
   boolean is_empty(){
@@ -221,9 +234,10 @@ public class Deck{
   /*int sl = count_lines("Cards1.txt");
   cardStack = new Card[sl];
   System.out.println("Size of cardstack is : " + cardStack.length);*/
-  initialize_from_read("Cards1.txt");
+  initialize_from_read("Self.txt");
   for (Card c : cardStack) {
     System.out.println("Suit: " + c.suit + " Value: " + c.val + " SpecialCard if given: " + c.specCard);
   }
+  draw_card();
 }
 }
