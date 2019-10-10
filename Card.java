@@ -26,10 +26,10 @@ public class Card{
     taken = true;
 
   }
-  public static void main(String[] args) {
+  /*public static void main(String[] args) {
     Card c1 = new Card('C', 2);
 
     System.out.println(c1.suit + c1.val);
-  }
+  }*/
 
 }

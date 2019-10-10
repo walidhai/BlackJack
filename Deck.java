@@ -5,14 +5,15 @@ import java.io.FileNotFoundException;
 
 
 public class Deck{
-  static Card[] cardStack;
+  Card[] cardStack;
+  HashMap<String, Integer> cards = new HashMap<String, Integer>();
   int deck_size;
 
   public Deck(){
 
   }
 
-  static void initialize_from_read(String filename) throws FileNotFoundException{
+  void initialize_from_read(String filename) throws FileNotFoundException{
 
     //Keeping my scanner and file variablenames short
     // At first glance of the assignment I would have thought all card stacks
@@ -60,6 +61,10 @@ public class Deck{
           int a = Integer.parseInt("" +tmp[1] + tmp[2]);
           System.out.println(a);
           tempCard = new Card(tmp[0], a);
+          cards.put(fileinput, tempCard.getVal());
+          /*for(String i : cards.keySet()){
+            System.out.println("key:" + i + "val:" + cards.get(i));
+          }*/
           cardStack[teller] = tempCard;
 
         }else if(tmp.length<2 || tmp.length > 3){
@@ -86,7 +91,7 @@ public class Deck{
             cardStack[teller] = tempCard;
           }
         }
-        System.out.println(cardStack[teller].suit + cardStack[teller].val);
+        //System.out.println(cardStack[teller].suit + cardStack[teller].val);
         teller ++;
       }
 
@@ -197,7 +202,7 @@ public class Deck{
     initialize_from_read("Self.txt");
   }
 
-  public static Card draw_card(){
+  public Card draw_card(){
     // Instead of stocking the input in the deck randomky, I chose to draw card from a randomk
     // index in the deck using the Math.random extension.
     //
@@ -225,7 +230,7 @@ public class Deck{
     return false;
   }
 
-  public static void main(String[] args) throws FileNotFoundException{
+  //public static void main(String[] args) throws FileNotFoundException{
     /*  Deck d1 = new Deck();
     d1.self_initialize_deck();
     for (Card c : d1.cardStack) {
@@ -234,10 +239,10 @@ public class Deck{
   /*int sl = count_lines("Cards1.txt");
   cardStack = new Card[sl];
   System.out.println("Size of cardstack is : " + cardStack.length);*/
-  initialize_from_read("Self.txt");
+  /*initialize_from_read("Self.txt");
   for (Card c : cardStack) {
     System.out.println("Suit: " + c.suit + " Value: " + c.val + " SpecialCard if given: " + c.specCard);
-  }
+    }
   draw_card();
-}
+  }*/
 }
