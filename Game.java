@@ -15,6 +15,9 @@ public class Game{
       d1.initialize_from_read(args[0]);
     }
   }
+  static void start_draw(){
+    
+  }
 
   static void start_game(){
 
