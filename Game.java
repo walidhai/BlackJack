@@ -5,10 +5,12 @@ import java.io.FileNotFoundException;
 public class Game{
 
   static Deck d1 = new Deck();
+  Player sam = new Player("Sam");
+  Dealer dealer = new Dealer();
 
   static void init_deck(String[] args)throws FileNotFoundException{
     if (args.length == 0) {
-      d1.self_initialize_deck_v2();
+      d1.self_initialize_deck();
     }else{
       d1.initialize_from_read(args[0]);
     }
