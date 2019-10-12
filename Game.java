@@ -5,8 +5,10 @@ import java.io.FileNotFoundException;
 public class Game{
 
   static Deck d1 = new Deck();
+  //Task says nothing about userinput, so I interpret user 'Sam' as a given user in the program
   static Player sam = new Player("Sam");
-  static Dealer dealer = new Dealer();
+  static Player dealer = new Player("Dealer");
+  static int blackjack = 21;
 
   static void init_deck(String[] args)throws FileNotFoundException{
     if (args.length == 0) {
@@ -16,17 +18,39 @@ public class Game{
     }
   }
   static void start_draw(){
-    sam.draw_from_deck(d1);
+    System.out.println("EACH PARTICIPANT DRAWINS TWO RANDOM CARDS FROM DECK");
     sam.draw_from_deck(d1);
     dealer.draw_from_deck(d1);
+    sam.draw_from_deck(d1);
     dealer.draw_from_deck(d1);
 
+    // dealer wins when both players starts with 22 (A + A)
     if (sam.points == 22 || dealer.points == 22) {
+      //dealer_win();
       System.out.println("Dealer wins");
+    }else if(dealer.points == blackjack || sam.points == blackjack){
+      //Player or Sam wins the game
+      // player_win();
     }
   }
 
+  static void mid_game(){
+
+  }
+
+  static void late_game(){
+
+  }
+
   static void start_game(){
+    start_draw();
+    // if neither player has Blackjack then sam can start drawing cards from the top
+    // of the deck
+    if (dealer.points==blackjack && sam.points==blackjack) {
+
+    }
+
+
 
   }
 
