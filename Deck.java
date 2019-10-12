@@ -59,7 +59,7 @@ public class Deck{
           //adding the two numbers and converting to int.
 
           int a = Integer.parseInt("" +tmp[1] + tmp[2]);
-          System.out.println(a);
+          //System.out.println(a);
           tempCard = new Card(tmp[0], a);
           cards.put(fileinput, tempCard.getVal());
           /*for(String i : cards.keySet()){
@@ -134,10 +134,10 @@ public class Deck{
       rand = (int) (Math.random() * range) + min;
       if(cardStack[rand].taken==false){
         cardStack[rand].card_is_drawn();
-        System.out.println("Random card: " + cardStack[rand].suit + cardStack[rand].val);
+        //System.out.println("Random card: " + cardStack[rand].suit + cardStack[rand].val);
         drawn = true;
       }
-      System.out.println("--");
+      //System.out.println("--");
     }
     return cardStack[rand];
   }

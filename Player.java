@@ -16,7 +16,7 @@ public class Player {
   }
 
   public void display_hand(){
-    System.out.println(name + "'s HAND CONTAINS: '");
+    System.out.println(name + "'s HAND CONTAINS: " + points);
     for (Card c: hand ) {
       if (c.specCard!=' ') {
         System.out.println(""+ c.suit + c.specCard);
