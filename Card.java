@@ -3,7 +3,7 @@ import java.util.*;
 public class Card{
   char suit;
   //Using specCard for cards Jack up to Spade so I can print them out as for instance CJ DQ AA etc
-  char specCard;
+  char specCard = ' ';
   int val;
   boolean taken = false;
 
