@@ -91,7 +91,7 @@ public class Game{
   }
 
   static void dealer_win(Player dealer, Player player){
-    System.out.println("Dealer WINS\n");
+    System.out.println("Dealer WINS \n");
     print_results(dealer, player);
     System.exit(0);
   }

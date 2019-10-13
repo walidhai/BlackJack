@@ -14,10 +14,10 @@ public class Card{
     this.specCard = ' ';
   }
 
-
   public void setSpecial(char c){
     specCard = c;
   }
+
   public int getVal(){
     return val;
   }
@@ -25,10 +25,5 @@ public class Card{
   public void card_is_drawn(){
     taken = true;
   }
-  /*public static void main(String[] args) {
-    Card c1 = new Card('C', 2);
-
-    System.out.println(c1.suit + c1.val);
-  }*/
 
 }
