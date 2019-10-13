@@ -10,6 +10,7 @@ public class Game{
   static Player dealer = new Player("Dealer");
   static int blackjack = 21;
 
+
   static void init_deck(String[] args)throws FileNotFoundException{
     if (args.length == 0) {
       d1.self_initialize_deck();
@@ -17,69 +18,96 @@ public class Game{
       d1.initialize_from_read(args[0]);
     }
   }
-  static void start_draw(){
-    System.out.println("EACH PARTICIPANT DRAWINS TWO RANDOM CARDS FROM DECK");
-    sam.draw_from_deck(d1);
+
+
+  static void start_draw(Player player, Player dealer){
+    System.out.println("EACH PARTICIPANT DRAWS TWO RANDOM CARDS FROM DECK");
+
+    player.draw_from_deck(d1);
     dealer.draw_from_deck(d1);
-    sam.draw_from_deck(d1);
+    player.draw_from_deck(d1);
     dealer.draw_from_deck(d1);
 
     // dealer wins when both players starts with 22 (A + A)
-    if (sam.points == 22 && dealer.points == 22) {
-      //dealer_win();
+    if (player.points == 22 && dealer.points == 22) {
+      dealer_win(player, dealer);
       System.out.println("Dealer wins");
-    }else if(dealer.points == blackjack && sam.points == blackjack){
+    }else if(dealer.points == blackjack && player.points == blackjack){
       //Player or Sam wins the game
-      // player_win();
+      player_win(player, dealer);
     }
   }
 
-  static void player_draws(Player p){
+  static void player_draws(Player player, Player dealer){
     boolean tt = true;
+
     while(tt){
       //sam must stop drawing cards from the deck if their total reaches 17 or higher
-      if (p.points >= 17) {
+      if (player.points >= 17) {
         //sam has lost the game if their total is higher than 21
-        if (p.points>21) {
-          //dealer_win();
-          System.out.println("u Lost! " + p.points);
-          tt=false;
+        if (player.points>21) {
+          dealer_win(player, dealer);
+          //System.out.println("u Lost! " + p.points);
+
         }
-        System.out.println(p.points);
+        System.out.println(player.points);
         tt=false;
         break;
       }else{
-        p.draw_from_deck(d1);
+        player.draw_from_deck(d1);
       }
     }
   }
 
-  static void dealer_draws(Player p1, Player p2){
+  static void dealer_draws(Player player, Player dealer){
     boolean tt = true;
+
     while(tt){
-      if (p1.points < 21) {
-        //player_win();
-        System.out.println("Du tapte din taper");
-        tt = false;
-      }else if (p1.points>p2.points) {
-        System.out.println("STOPSTOPSTOP!!! : DEALER POINTS AND PLAYER POINTS: " + p1.points + p2.points);
+      if (dealer.points < 21) {
+        player_win(player, dealer);
+        //System.out.println("Du tapte din taper");
+        //tt = false;
+      }else if (dealer.points>player.points) {
+        //System.out.println("STOPSTOPSTOP!!! : DEALER POINTS AND PLAYER POINTS: " + p1.points + p2.points);
         tt = false;
       }
 
-      p1.draw_from_deck(d1);
+      dealer.draw_from_deck(d1);
     }
   }
 
-  static void start_game(){
-    start_draw();
+  static void print_results(Player p1, Player p2){
+    System.out.printf("[(%s)|(%s)]\n", p1.name, p2.name);
+    p1.display_hand();
+    System.out.println();
+    p2.display_hand();
+  }
+
+
+  static void player_win(Player player, Player dealer){
+    System.out.printf("PLAYER %s WINS \n", player.name);
+    print_results(player, dealer);
+    System.exit(0);
+  }
+
+  static void dealer_win(Player dealer, Player player){
+    System.out.println("Dealer WINS\n");
+    print_results(dealer, player);
+    System.exit(0);
+  }
+
+  static void start_game(Player player, Player dealer){
+    start_draw(player, dealer);
     // if neither player has Blackjack then sam can start drawing cards from the top
     // of the deck
     if (dealer.points==blackjack) {
-      //dealer_win();
-    } else if (sam.points == blackjack) {
-      // player_win();
+      dealer_win(dealer, player);
+    } else if (player.points == blackjack) {
+       player_win(player, dealer);
     }
 
+    player_draws(player, dealer);
+    dealer_draws(player, dealer);
 
 
 
@@ -91,12 +119,15 @@ public class Game{
       System.out.println(c.suit + " "+ c.val);
     }*/
 
-    start_draw();
+    /*start_draw();
 
     player_draws(sam);
     dealer_draws(dealer, sam);
+    System.out.printf("[%s|%s)]\n", sam.name, dealer.name);
     sam.display_hand();
-    dealer.display_hand();
+    dealer.display_hand();*/
+
+    start_game(sam, dealer);
 
   }
 }

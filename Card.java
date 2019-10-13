@@ -24,7 +24,6 @@ public class Card{
 
   public void card_is_drawn(){
     taken = true;
-
   }
   /*public static void main(String[] args) {
     Card c1 = new Card('C', 2);

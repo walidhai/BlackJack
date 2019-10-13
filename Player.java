@@ -19,12 +19,12 @@ public class Player {
     System.out.println(name + "'s HAND CONTAINS: " + points);
     for (Card c: hand ) {
       if (c.specCard!=' ') {
-        System.out.println(""+ c.suit + c.specCard);
+        System.out.print(""+ c.suit + c.specCard+" ");
       }else{
-        System.out.println(""+ c.suit + c.val);
+        System.out.print(""+ c.suit + c.val+ " ");
       }
     }
-    System.out.println("------ DONE ------");
+    System.out.println();
   }
 
 }

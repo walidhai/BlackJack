@@ -130,6 +130,7 @@ public class Deck{
     int range = max - min +1;
     int rand = 0;
     boolean drawn = false;
+    
     while(!drawn){
       rand = (int) (Math.random() * range) + min;
       if(cardStack[rand].taken==false){
