@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 public class Game{
 
   static Deck d1 = new Deck();
-  //Task says nothing about userinput, so I interpret user 'Sam' as a given user in the program
+  //Task says nothing about user input, so I interpret user 'Sam' as a given user in the program
   static Player sam = new Player("Sam");
   static Player dealer = new Player("Dealer");
   static int blackjack = 21;
@@ -20,6 +20,8 @@ public class Game{
   }
 
 
+  /*each player is given two cards from the top of a shuffled deck of cards. Cards
+    are given in the following order: [sam, dealer, sam, dealer]*/
   static void start_draw(Player player, Player dealer){
     System.out.println("EACH PARTICIPANT DRAWS TWO RANDOM CARDS FROM DECK");
 
@@ -47,8 +49,6 @@ public class Game{
         //sam has lost the game if their total is higher than 21
         if (player.points>21) {
           dealer_win(player, dealer);
-          //System.out.println("u Lost! " + p.points);
-
         }
         System.out.println(player.points);
         tt=false;
@@ -64,11 +64,10 @@ public class Game{
 
     while(tt){
       if (dealer.points < 21) {
+        //the dealer has lost the game if their total is higher than 21
         player_win(player, dealer);
-        //System.out.println("Du tapte din taper");
-        //tt = false;
       }else if (dealer.points>player.points) {
-        //System.out.println("STOPSTOPSTOP!!! : DEALER POINTS AND PLAYER POINTS: " + p1.points + p2.points);
+        //the dealer must stop drawing cards when their total is higher than sam.
         tt = false;
       }
 
@@ -108,24 +107,17 @@ public class Game{
 
     player_draws(player, dealer);
     dealer_draws(player, dealer);
-
+    if (player.points>dealer.points) {
+      player_win(player, dealer);
+    }else{
+      dealer_win(player, dealer);
+    }
 
 
   }
 
   public static void main(String[] args) throws FileNotFoundException{
     init_deck(args);
-    /*for (Card c: d1.cardStack ) {
-      System.out.println(c.suit + " "+ c.val);
-    }*/
-
-    /*start_draw();
-
-    player_draws(sam);
-    dealer_draws(dealer, sam);
-    System.out.printf("[%s|%s)]\n", sam.name, dealer.name);
-    sam.display_hand();
-    dealer.display_hand();*/
 
     start_game(sam, dealer);
 
