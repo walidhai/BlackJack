@@ -50,7 +50,6 @@ public class Game{
         if (player.points>21) {
           dealer_win(player, dealer);
         }
-        System.out.println(player.points);
         tt=false;
         break;
       }else{

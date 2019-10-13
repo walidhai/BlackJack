@@ -110,6 +110,10 @@ public class Deck{
       //System.out.println(teller);
       teller++;
     }
+    if (teller<4) {
+      System.out.println("FILE NOT LONG ENOUGH TO CONTAIN A DECK THAT CAN BE USED IN THE CARD GAME");
+      System.exit(0);
+    }
     return teller;
   }
 
