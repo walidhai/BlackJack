@@ -63,12 +63,13 @@ public class Game{
     boolean tt = true;
 
     while(tt){
-      if (dealer.points < 21) {
+      if (dealer.points > 21) {
         //the dealer has lost the game if their total is higher than 21
         player_win(player, dealer);
       }else if (dealer.points>player.points) {
         //the dealer must stop drawing cards when their total is higher than sam.
         tt = false;
+        break;
       }
 
       dealer.draw_from_deck(d1);
@@ -76,10 +77,11 @@ public class Game{
   }
 
   static void print_results(Player p1, Player p2){
-    System.out.printf("[(%s)|(%s)]\n", p1.name, p2.name);
+    System.out.printf("[%s|%s]\n", p1.name, p2.name);
     p1.display_hand();
     System.out.println();
     p2.display_hand();
+    System.out.println("\n Points from " + p1.name + ": " + p1.points + " and " + p2.name + ": " + p2.points);
   }
 
 
