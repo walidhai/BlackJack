@@ -33,7 +33,7 @@ public class Game{
     // dealer wins when both players starts with 22 (A + A)
     if (player.points == 22 && dealer.points == 22) {
       dealer_win(player, dealer);
-      System.out.println("Dealer wins");
+      System.out.println("Dealer wins, both got 22");
     }else if(dealer.points == blackjack && player.points == blackjack){
       //Player or Sam wins the game
       player_win(player, dealer);
@@ -90,8 +90,13 @@ public class Game{
     System.exit(0);
   }
 
-  static void dealer_win(Player dealer, Player player){
+  static void dealer_win(Player player, Player dealer){
     System.out.println("\nDealer WINS\n");
+    print_results(dealer, player);
+    System.exit(0);
+  }
+  static void tied(Player player, Player dealer){
+    System.out.println("\nTIED NO WINNERS\n");
     print_results(dealer, player);
     System.exit(0);
   }
@@ -110,6 +115,8 @@ public class Game{
     dealer_draws(player, dealer);
     if (player.points>dealer.points) {
       player_win(player, dealer);
+    }else if (player.points==dealer.points) {
+
     }else{
       dealer_win(player, dealer);
     }
