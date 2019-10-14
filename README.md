@@ -15,3 +15,7 @@ java Game.java [Filename]
 There are some text files included with the program. Some of them checking edge cases given in the methods for reading the files. ShuffleDeck.txt and Self.txt are recommended to try, and if you don't use any files in the command line, the program will use Self.txt for init of the deck. For each run of the program, there will only be one walkthrough of the game. Each time with different output. The code written in the program makes it customizable if people want to run the game with more hands.
 
 As for now the reading of the file should not exceed O(N^2) in time complexity and drawing of cards O(N).
+
+# Important!
+Package in my text editor creates .class files that .gitignore won't ignore when commiting.
+Remember to delete those before you start the game. 
