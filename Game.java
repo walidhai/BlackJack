@@ -23,7 +23,7 @@ public class Game{
   /*each player is given two cards from the top of a shuffled deck of cards. Cards
     are given in the following order: [sam, dealer, sam, dealer]*/
   static void start_draw(Player player, Player dealer){
-    System.out.println("EACH PARTICIPANT DRAWS TWO RANDOM CARDS FROM DECK");
+    System.out.println("Game begins. Each participant draws two cards each from the deck.");
 
     player.draw_from_deck(d1);
     dealer.draw_from_deck(d1);
@@ -80,18 +80,18 @@ public class Game{
     p1.display_hand();
     System.out.println();
     p2.display_hand();
-    System.out.println("\n Points from " + p1.name + ": " + p1.points + " and " + p2.name + ": " + p2.points);
+    System.out.printf("\nPoints from %s: %d and %s: %d \n",p1.name, p1.points, p2.name, p2.points);
   }
 
 
   static void player_win(Player player, Player dealer){
-    System.out.printf("PLAYER %s WINS \n", player.name);
+    System.out.printf("\nPLAYER %s WINS\n", player.name);
     print_results(player, dealer);
     System.exit(0);
   }
 
   static void dealer_win(Player dealer, Player player){
-    System.out.println("Dealer WINS \n");
+    System.out.println("\nDealer WINS\n");
     print_results(dealer, player);
     System.exit(0);
   }
@@ -114,12 +114,14 @@ public class Game{
       dealer_win(player, dealer);
     }
 
-
   }
 
   public static void main(String[] args) throws FileNotFoundException{
     init_deck(args);
-
+    /* Assert cases for some of the static variables.
+     assert d1 == null : "Invalid deck";
+     assert blackjack !=21: "Not the right number";
+    */
     start_game(sam, dealer);
 
   }

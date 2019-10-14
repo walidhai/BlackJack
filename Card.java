@@ -3,6 +3,7 @@ import java.util.*;
 public class Card{
   char suit;
   //Using specCard for cards Jack up to Spade so I can print them out as for instance CJ DQ AA etc
+  // at the end of the game.
   char specCard = ' ';
   int val;
   boolean taken = false;
@@ -22,6 +23,7 @@ public class Card{
     return val;
   }
 
+  //Used later in Deck.java to mark as drawn.
   public void card_is_drawn(){
     taken = true;
   }

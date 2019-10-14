@@ -6,11 +6,23 @@ import java.io.FileNotFoundException;
 
 public class Deck{
   Card[] cardStack;
-  HashMap<String, Integer> cards = new HashMap<String, Integer>();
+  //HashMap<String, Integer> cards = new HashMap<String, Integer>();
   int deck_size;
 
   public Deck(){
 
+  }
+
+  boolean bad_char(char c){
+    //J Q K A legal
+    String s = "BCDEFGHILMNOPRSTUVWXYZ";
+    char[] illegalChars = s.toCharArray();
+    for (int i = 0;i<illegalChars.length ; i++) {
+      if (c == illegalChars[i]) {
+        return true;
+      }
+    }
+    return false;
   }
 
   void initialize_from_read(String filename) throws FileNotFoundException{
@@ -27,7 +39,7 @@ public class Deck{
     File cf = new File(filename);
     int teller = 0;
     try {
-      //pass på her pls
+
       Scanner sc = new Scanner(cf);
 
       String fileinput;
@@ -35,19 +47,23 @@ public class Deck{
       String suiteType;
       String passedValue;
 
-      /* Actual reading from
-       *
-       *
-       *
-       *
+      /* Actual passing files in the card game contains lines such as the ones given in Self.txt
+       * and look like H2, H4, H5 ... HA (as an example)
        */
       while(sc.hasNextLine()){
         if(!sc.hasNext()){
           break;
         }
+
         fileinput = sc.next();
         tmp = fileinput.toCharArray();
 
+        //Checks if given text in file has valid value
+        if (bad_char(tmp[1])) {
+          System.out.println("ERROR: FILE TEXT INVALID");
+          System.exit(0);
+        }
+        
        /*   In the events of reading cards from the file I either get lines with
             2 characters or 3 characters depending on the score.
             3 characters is the special case with cards of value = 10.
@@ -58,17 +74,27 @@ public class Deck{
 
           //adding the two digits and converting to int.
           int a = Integer.parseInt("" +tmp[1] + tmp[2]);
+          if (a>10) {
+            System.out.println("ERROR: FILE INPUT INVALID - NUMBERS TOO BIG FOR CARDS");
+            System.exit(0);
+          }
           tempCard = new Card(tmp[0], a);
-          cards.put(fileinput, tempCard.getVal());
-          /*for(String i : cards.keySet()){
-            System.out.println("key:" + i + "val:" + cards.get(i));
-          }*/
           cardStack[teller] = tempCard;
 
+          /*
+            Playing around with HashMap. here is how we could add cards to a hashmap.
+            Using the cards as keys in the HashMap would prevent any duplicates of cards.
+            cards.put(fileinput, tempCard.getVal());
+            for(String i : cards.keySet()){
+            System.out.println("key:" + i + "val:" + cards.get(i));
+          }*/
+
         }else if(tmp.length<2 || tmp.length > 3){
-          System.out.println("ERROR: FILE INPUT INVALID");
+          System.out.println("ERROR: FILE INPUT INVALID - DIGITS TOO LONG FOR CARDS");
+          System.exit(0);
         }else{
           int a;
+
           if (tmp[1]=='J'||tmp[1]=='Q'||tmp[1]=='K') {
             a = 10;
 
@@ -123,7 +149,7 @@ public class Deck{
   }
 
   public Card draw_card(){
-    /* Instead of stocking the input in the deck randomky, I chose to draw card from a randomk
+    /* Instead of stocking the input in the deck randomy, I chose to draw card from a random
        index in the deck using Math.random.*/
     int min = 0;
     int max = cardStack.length - 1;
@@ -137,7 +163,6 @@ public class Deck{
         cardStack[rand].card_is_drawn();
         drawn = true;
       }
-      //System.out.println("--");
     }
     return cardStack[rand];
   }
